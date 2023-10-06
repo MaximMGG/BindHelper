@@ -1,0 +1,36 @@
+
+plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'
+}
+
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.help.tranlation.App'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(19)
+    }
+}
+
+application {
+    mainClass = 'org.help.tranlation.App'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
