@@ -21,10 +21,16 @@ public class App {
     private String currentFileName;
     private String systemPath = "C:/users/123/desktop/EnglishWords/%s.txt";
     
+    private static boolean configReady = false;
 
     public static void main(String[] args) throws IOException {
         App app = new App();
         app.work();
+        new Initializer();
+    }
+
+    public static void setConfigReady() {
+        configReady = true;
     }
 
 
@@ -39,10 +45,10 @@ public class App {
                 case "c" -> {createNewFile(commands[1]);}
                 case "s" -> {setCurrentFileName(commands[1]);}
                 case "a" -> {addWord(concatinateWord(commands));}
+                case "b" -> {} //TODO (maxim) add funcionality for creating and selectiong binds
                 case "sh" -> {showAllWordsFromCurrentFile();}
                 case "shd" -> {showAllDictionaries();}
                 case "help" -> {showOptions();}
-                
             }
         }
         scan.close();
