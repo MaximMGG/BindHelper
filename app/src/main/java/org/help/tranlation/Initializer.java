@@ -75,8 +75,9 @@ public class Initializer extends Thread {
                 for (int j = i; j < config.size(); j++) {
                     buffer.add(config.get(j)); 
                     if (config.get(j).equals("</Bind>")) {
-                        i = j - i;
+                        i += (j - i);
                         setBinds(buffer);
+                        break;
                     }
                 }
             }

@@ -3,6 +3,7 @@ package org.help.tranlation;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class User {
 
     public void writeConfigEndClose() {
         try {
-            Files.write(Path.of("resources/config.xml"), configXML());
+           Files.write(Path.of("resources/config.xml"), configXML(), StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Can't write configXML, sothing went wrong");
@@ -123,7 +124,7 @@ public class User {
             if (b.getChildren() != null) {
                 List<Bind> children = b.getChildren();
                 for(Bind child : children) {
-                    System.out.printf("bind : %s, value is : %s\n", child.getName(), child.getValue());
+                    System.out.printf("\tbind : %s, value is : %s\n", child.getName(), child.getValue());
                 }
             }
         }
