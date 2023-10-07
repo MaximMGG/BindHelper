@@ -86,6 +86,13 @@ public class Initializer extends Thread {
     }
 
     private void setBinds(List<String> buffer) {
+        String name = "";
+        String value = "";
+        for (int i = 0; i < buffer.size(); i++) {
+             
+            //TODO (maxim) to late, need here write logic to add parentBind and
+            //send children bilds to another method
+        }
 
     }
     

@@ -27,7 +27,7 @@ public class App {
         App app = new App();
         app.user = User.getInstance();
         app.work();
-        new Initializer();
+        new Initializer(); //TODO (maxim) end initialize functional
     }
 
     public static void setConfigReady() {
@@ -56,6 +56,8 @@ public class App {
         scan.close();
     }
 
+    //TODO(maxim) need write method for adding binds in config for writing on
+    //disk
     private void bindWorker(String[] commands) {
         if (commands[1].equals("cp")) {
             Bind bind = new Bind(commands[2], commands[3]);
