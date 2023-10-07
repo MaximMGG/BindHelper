@@ -53,20 +53,39 @@ public class Initializer extends Thread {
     }
 
     private void loadConfig() {
+        List<String> config;
         try {
-            List<String> config = Files.readAllLines(Path.of("resources/config.xml"));
+            config = Files.readAllLines(Path.of("resources/config.xml"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Can't read config, please check it'");
             throw new RuntimeException(e);
         }
+        List<String> buffer;
 
-        for(String line : config) {
+        setPathToDir(config.get(1));
 
+        for (int i = 4; i < config.size(); i++) {
+            if (config.get(i).equals("<Bind>")) {
+                buffer = new ArrayList<>();
+                for (int j = i; j < config.size(); j++) {
+                    buffer.add(config.get(j)); 
+                    if (config.get(j).equals("</Bind>")) {
+                        i = j - i;
+                        setBinds(buffer);
+                    }
+                }
+            }
         }
 
+    }
 
+    private void setPathToDir(String dirPath) {
+        String b = dirPath.replaceAll("<.+>", "");
+        user.setPathToDir(b);
+    }
 
+    private void setBinds(List<String> buffer) {
 
     }
     
