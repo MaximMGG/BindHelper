@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Initializer extends Thread {
 
-    private final String pathToConf = "resources/config.txt";
+    private final String pathToConf = "resources/config.xml";
+
     private User user;
 
     public Initializer() {
@@ -20,17 +21,16 @@ public class Initializer extends Thread {
     public void run() {
         checkOrCreateConfig();
 
-
-
         App.setConfigReady();
     }
 
     public void checkOrCreateConfig() {
         if (!(Files.exists(Path.of(pathToConf)))) {
             System.out.println("Please set path to directory enter: dir \"full_path_to_dir\"");
-            addStructureInConfig();
             try {
+                Files.createDirectory(Path.of("resources"));
                 Files.createFile(Path.of(pathToConf));
+                addStructureInConfig();
             } catch (IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException("Can't create config");
@@ -43,13 +43,17 @@ public class Initializer extends Thread {
 
     private void addStructureInConfig() {
         List<String> structure = new ArrayList<>();
-        structure.add("<PathToDir>\n");
-        structure.add("<Path>p</Path>\n");
-        structure.add("</PathToDir>\n");
-        structure.add("\n");
-        structure.add("<Binds>\n");
-        structure.add("</Binds>\n");
-
+        structure.add("<PathToDir>");
+        structure.add("<Path>p</Path>");
+        structure.add("</PathToDir>");
+        structure.add("<Binds>");
+        structure.add("</Binds>");
+        try {
+            Files.write(Path.of(pathToConf), structure);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Can't write sructure in config.xml");
+        }
     }
 
     private void loadConfig() {

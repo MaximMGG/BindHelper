@@ -1,8 +1,6 @@
 package org.help.tranlation;
 
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -118,4 +116,21 @@ public class User {
         configXML.add("</Binds>");
         return configXML;
     }
+
+    public void showAllBinds() {
+        for(Bind b : binds) {
+            System.out.printf("bind : %s, value is : %s\n", b.getName(), b.getValue());
+            if (b.getChildren() != null) {
+                List<Bind> children = b.getChildren();
+                for(Bind child : children) {
+                    System.out.printf("bind : %s, value is : %s\n", child.getName(), child.getValue());
+                }
+            }
+        }
+    }
+
+    public void executBind(String name) {
+
+    }
+
 }

@@ -26,8 +26,8 @@ public class App {
     public static void main(String[] args) throws IOException {
         App app = new App();
         app.user = User.getInstance();
-        app.work();
         new Initializer(); //TODO (maxim) end initialize functional
+        app.work();
     }
 
     public static void setConfigReady() {
@@ -60,6 +60,10 @@ public class App {
     //TODO(maxim) need write method for adding binds in config for writing on
     //disk
     private void bindWorker(String[] commands) {
+        if (commands.length <= 1) {
+            System.out.println("Command do not exist");
+            return;
+        }
         if (commands[1].equals("cp")) {
             Bind bind = new Bind(commands[2], commands[3]);
             user.addBind(bind);
@@ -70,6 +74,8 @@ public class App {
             user.removeBind(commands[2]);
         } else if (commands[1].equals("dc")) {
             user.removeBindChild(commands[4], commands[3]);
+        } else if (commands[1].equals("show")) {
+            user.showAllBinds();
         }
     }
 
