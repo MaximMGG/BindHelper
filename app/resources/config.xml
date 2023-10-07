@@ -1,0 +1,18 @@
+<PathToDir>
+    <Path></Path>
+</PathToDir>
+
+<Binds>
+    <Bind>
+            <name></name>
+            <value></value>
+            <ChildrenBinds>
+                <ChildrenBind>
+                    <name></name>
+                    <value></value>
+                </ChildrenBind>
+            </ChildrenBinds>
+    </Bind>
+
+
+</Binds>

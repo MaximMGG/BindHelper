@@ -19,14 +19,15 @@ public class App {
 
     private ConsoleCommand cc = new ConsoleCommand();
     private String currentFileName;
-    private String systemPath = "C:/users/123/desktop/EnglishWords/%s.txt";
+    private User user;
     
     private static boolean configReady = false;
 
     public static void main(String[] args) throws IOException {
         App app = new App();
+        app.user = User.getInstance();
         app.work();
-        new Initializer();
+        new Initializer(); //TODO (maxim) end initialize functional
     }
 
     public static void setConfigReady() {
@@ -45,13 +46,31 @@ public class App {
                 case "c" -> {createNewFile(commands[1]);}
                 case "s" -> {setCurrentFileName(commands[1]);}
                 case "a" -> {addWord(concatinateWord(commands));}
-                case "b" -> {} //TODO (maxim) add funcionality for creating and selectiong binds
+                case "b" -> {bindWorker(commands);}
                 case "sh" -> {showAllWordsFromCurrentFile();}
                 case "shd" -> {showAllDictionaries();}
+                case "dir" -> {}
                 case "help" -> {showOptions();}
             }
         }
+        user.writeConfigEndClose();
         scan.close();
+    }
+
+    //TODO(maxim) need write method for adding binds in config for writing on
+    //disk
+    private void bindWorker(String[] commands) {
+        if (commands[1].equals("cp")) {
+            Bind bind = new Bind(commands[2], commands[3]);
+            user.addBind(bind);
+        } else if (commands[1].equals("cc")) {
+            Bind bind = new Bind(commands[3], commands[4]);
+            user.addChildBind(commands[2], bind);
+        } else if (commands[1].equals("dp")) {
+            user.removeBind(commands[2]);
+        } else if (commands[1].equals("dc")) {
+            user.removeBindChild(commands[4], commands[3]);
+        }
     }
 
     private void showAllWordsFromCurrentFile() {
@@ -60,7 +79,7 @@ public class App {
             System.out.println("Current file not define, please set current file");
         } else {
             try {
-               allWords = Files.readAllLines(Path.of(systemPath.formatted(currentFileName)));
+               allWords = Files.readAllLines(Path.of(user.getPathToDir() + user.getCurrentFile()));
             } catch (IOException e) {
                 System.out.println("Can't read from that file, please set another");
                 e.printStackTrace();
@@ -79,17 +98,22 @@ public class App {
         System.out.println("a - add word in your file (a cat - your translations)");
         System.out.println("sh - show all words from current file");
         System.out.println("shd - show all dictionaries from dir");
+        System.out.println("b - bind menu");
+        System.out.println("\tb cp - create parent bind(b cp parent_name value)");
+        System.out.println("\tb cc - create child bind(b cp parent_name child_name value)");
+        System.out.println("\tb dp - delete parent bind(b dp parent_name");
+        System.out.println("\tb dc - delete child bind(b dp parent_name child_name");
+        System.out.println("dir - set directory for saving words");
     }
 
 
     private void setCurrentFileName(String fileName) {
-        currentFileName = fileName;
+        user.setCurrentFile(fileName);
     }
 
 
     public void createNewFile(String fileName) {
-        currentFileName = fileName;
-        File f = new File(systemPath.formatted(currentFileName));
+        File f = new File(user.getPathToDir() + user.getCurrentFile());
         try {
             f.createNewFile();
         } catch (IOException e) {
@@ -101,7 +125,7 @@ public class App {
         if (currentFileName == null) {
             System.out.println("You didn't set file for word saving");
         } else {
-            Path path = Path.of("C:/users/123/desktop/EnglishWords/%s.txt".formatted(currentFileName));
+            Path path = Path.of(user.getPathToDir() + user.getCurrentFile());
             try {
                 Files.writeString(path, (word + "\n"), StandardOpenOption.APPEND);
             } catch (IOException e) {
@@ -120,7 +144,7 @@ public class App {
 
 
     private void showAllDictionaries() {
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Path.of("C:/users/123/desktop/EnglishWords"))) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Path.of(user.getPathToDir()))) {
             Iterator<Path> iterator = stream.iterator();
             while(iterator.hasNext()) {
                 String file = iterator.next().getFileName().toString();
