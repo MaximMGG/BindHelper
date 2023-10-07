@@ -130,7 +130,22 @@ public class User {
     }
 
     public void executBind(String name) {
-
+        for(Bind b : binds) {
+            if (b.getName().equals(name)) {
+                ConsoleCommand.execute(b.getValue());
+            }
+        }
     }
 
+    public void executChildBind(String parentName, String child) {
+        for(Bind b : binds) {
+            if (b.getName().equals(parentName)) {
+                for(Bind c : b.getChildren()) {
+                    if (c.getName().equals(child)) {
+                        ConsoleCommand.execute(c.getValue());
+                    }
+                }
+            }
+        }
+    }
 }

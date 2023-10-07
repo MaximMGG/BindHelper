@@ -1,7 +1,5 @@
 package org.help.tranlation;
 
-import java.io.Console;
-
 public class ConsoleCommand {
 
 
@@ -21,6 +19,19 @@ public class ConsoleCommand {
             Runtime.getRuntime().exec(command);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void execute(String value) {
+        String[] command = new String[2];
+        command[0] = "chrome.exe";
+        command[1] = value;
+
+        try {
+            Runtime.getRuntime().exec(command);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Can't execute yuor bind");
         }
     }
 
