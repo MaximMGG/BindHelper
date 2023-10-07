@@ -9,6 +9,8 @@ public class Bind {
     private String value;
     private List<Bind> children = new ArrayList<>();
 
+    public Bind() {}
+
     public Bind(String name, String value) {
         this.name = name;
         this.value = value;

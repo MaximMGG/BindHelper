@@ -88,24 +88,26 @@ public class Initializer extends Thread {
     private void setBinds(List<String> buffer) {
         String name = "";
         String value = "";
+        Bind parent = new Bind();
         for (int i = 0; i < buffer.size(); i++) {
             if (buffer.get(i).equals("<Bind>")) {
                 i++;
                 name = buffer.get(i).replaceAll("<.+>", "");
                 i++;
                 value = buffer.get(i).replaceAll("<.+>", "");
-                user.addBind(new Bind(name, value));
+                parent = new Bind(name, value);
+                user.addBind(parent);
                 continue;
             }
             
             if (buffer.get(i).equals("<ChildBind>")) {
-
+                i++;
+                name = buffer.get(i).replaceAll("<.+>", "");
+                i++;
+                value = buffer.get(i).replaceAll("<.+>", "");
+                user.addChildBind(parent.getName(), new Bind(name, value));
+                continue;
             }
-             
         }
-
     }
-    
-
-
 }
