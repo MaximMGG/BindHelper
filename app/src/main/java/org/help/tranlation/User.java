@@ -8,8 +8,18 @@ public class User {
     private List<Bind> binds = new ArrayList<>();
     
     private static User user = new User();
+    private String pathToDir;
+    private String currentFile;
 
     private User() {}
+
+    public void setPathToDir(String path) {
+        this.pathToDir = path;
+    }
+
+    public String getPathToDir() {
+        return pathToDir;
+    }
 
     public static User getInstance() {
         return user;
@@ -50,6 +60,14 @@ public class User {
                 b.addChild(bind);
             }
         }
+    }
+
+    public String getCurrentFile() {
+        return currentFile;
+    }
+
+    public void setCurrentFile(String fileName) {
+        this.currentFile = fileName + ".txt";
     }
 
 }
