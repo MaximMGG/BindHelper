@@ -10,7 +10,7 @@ public class ConsoleCommand {
         askGoogleTrans(word);
 
     }
-
+    //TODO (maxim) neet to add functionality for translation more then one word
     public void askGoogleTrans(String word) {
         String[] command = new String[2];
         command[0] = "chrome.exe";

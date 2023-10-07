@@ -41,7 +41,7 @@ public class App {
         while(!(command = scan.nextLine()).equals("exit")) {
             String[] commands = command.split(" ");
             switch (commands[0]) {
-                case "t" -> {cc.askGoogleTrans(commands[1]);}
+                case "t" -> {cc.askGoogleTrans(concatinateWord(commands));}
                 case "c" -> {createNewFile(commands[1]);}
                 case "s" -> {setCurrentFileName(commands[1]);}
                 case "a" -> {addWord(concatinateWord(commands));}
