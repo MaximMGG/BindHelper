@@ -20,11 +20,13 @@ public class App {
     private ConsoleCommand cc = new ConsoleCommand();
     private String currentFileName;
     private String systemPath = "C:/users/123/desktop/EnglishWords/%s.txt";
+    private User user;
     
     private static boolean configReady = false;
 
     public static void main(String[] args) throws IOException {
         App app = new App();
+        app.user = User.getInstance();
         app.work();
         new Initializer();
     }
@@ -45,13 +47,27 @@ public class App {
                 case "c" -> {createNewFile(commands[1]);}
                 case "s" -> {setCurrentFileName(commands[1]);}
                 case "a" -> {addWord(concatinateWord(commands));}
-                case "b" -> {} //TODO (maxim) add funcionality for creating and selectiong binds
+                case "b" -> {bindWorker(commands);}
                 case "sh" -> {showAllWordsFromCurrentFile();}
                 case "shd" -> {showAllDictionaries();}
                 case "help" -> {showOptions();}
             }
         }
         scan.close();
+    }
+
+    private void bindWorker(String[] commands) {
+        if (commands[1].equals("cp")) {
+            Bind bind = new Bind(commands[2], commands[3]);
+            user.addBind(bind);
+        } else if (commands[1].equals("cc")) {
+            Bind bind = new Bind(commands[3], commands[4]);
+            user.addChildBind(commands[2], bind);
+        } else if (commands[1].equals("dp")) {
+            user.removeBind(commands[2]);
+        } else if (commands[1].equals("dc")) {
+            user.removeBindChild(commands[4], commands[3]);
+        }
     }
 
     private void showAllWordsFromCurrentFile() {
