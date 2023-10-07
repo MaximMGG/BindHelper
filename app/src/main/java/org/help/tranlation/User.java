@@ -105,8 +105,8 @@ public class User {
                 
                 for(Bind child : b.getChildren()) {
                     configXML.add("<ChildrenBind>");
-            configXML.add("<name>%s</name>".formatted(child.getName()));
-            configXML.add("<value>%s</value>".formatted(child.getValue()));
+                    configXML.add("<name>%s</name>".formatted(child.getName()));
+                    configXML.add("<value>%s</value>".formatted(child.getValue()));
                     configXML.add("</ChildrenBind>");
                 }
                 configXML.add("</ChildrenBinds>");

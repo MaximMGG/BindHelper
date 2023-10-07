@@ -104,7 +104,7 @@ public class Initializer extends Thread {
                 continue;
             }
             
-            if (buffer.get(i).equals("<ChildBind>")) {
+            if (buffer.get(i).equals("<ChildrenBind>")) {
                 i++;
                 name = buffer.get(i).replaceAll("<.[A-z]+>", "");
                 i++;

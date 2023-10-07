@@ -18,7 +18,6 @@ import java.util.Scanner;
 public class App {
 
     private ConsoleCommand cc = new ConsoleCommand();
-    private String currentFileName;
     private User user;
     
     private static boolean configReady = false;
@@ -49,7 +48,7 @@ public class App {
                 case "b" -> {bindWorker(commands);}
                 case "sh" -> {showAllWordsFromCurrentFile();}
                 case "shd" -> {showAllDictionaries();}
-                case "dir" -> {}
+                case "dir" -> {user.setPathToDir(commands[1]);}
                 case "help" -> {showOptions();}
             }
         }
@@ -87,7 +86,7 @@ public class App {
 
     private void showAllWordsFromCurrentFile() {
         List<String> allWords = new ArrayList<>();
-        if (currentFileName == null) {
+        if (user.getCurrentFile() == null) {
             System.out.println("Current file not define, please set current file");
         } else {
             try {
@@ -125,7 +124,7 @@ public class App {
 
 
     public void createNewFile(String fileName) {
-        File f = new File(user.getPathToDir() + user.getCurrentFile());
+        File f = new File(user.getPathToDir() + fileName + ".txt");
         try {
             f.createNewFile();
         } catch (IOException e) {
@@ -134,7 +133,7 @@ public class App {
     }
 
     public void addWord(String word) {
-        if (currentFileName == null) {
+        if (user.getCurrentFile() == null) {
             System.out.println("You didn't set file for word saving");
         } else {
             Path path = Path.of(user.getPathToDir() + user.getCurrentFile());
