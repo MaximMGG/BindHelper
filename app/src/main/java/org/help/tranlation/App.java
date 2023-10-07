@@ -26,7 +26,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         App app = new App();
         app.user = User.getInstance();
-        new Initializer(); //TODO (maxim) end initialize functional
+        new Initializer();
         app.work();
     }
 
@@ -57,25 +57,31 @@ public class App {
         scan.close();
     }
 
-    //TODO(maxim) need write method for adding binds in config for writing on
-    //disk
     private void bindWorker(String[] commands) {
         if (commands.length <= 1) {
             System.out.println("Command do not exist");
             return;
         }
-        if (commands[1].equals("cp")) {
-            Bind bind = new Bind(commands[2], commands[3]);
-            user.addBind(bind);
-        } else if (commands[1].equals("cc")) {
-            Bind bind = new Bind(commands[3], commands[4]);
-            user.addChildBind(commands[2], bind);
-        } else if (commands[1].equals("dp")) {
-            user.removeBind(commands[2]);
-        } else if (commands[1].equals("dc")) {
-            user.removeBindChild(commands[4], commands[3]);
-        } else if (commands[1].equals("show")) {
-            user.showAllBinds();
+        try {
+            if (commands[1].equals("cp")) {
+                Bind bind = new Bind(commands[2], commands[3]);
+                user.addBind(bind);
+            } else if (commands[1].equals("cc")) {
+                Bind bind = new Bind(commands[3], commands[4]);
+                user.addChildBind(commands[2], bind);
+            } else if (commands[1].equals("dp")) {
+                user.removeBind(commands[2]);
+            } else if (commands[1].equals("dc")) {
+                user.removeBindChild(commands[4], commands[3]);
+            } else if (commands[1].equals("show")) {
+                user.showAllBinds();
+            } else if (commands.length == 2) {
+                user.executBind(commands[1]);
+            } else if (commands.length > 2) {
+                user.executChildBind(commands[1], commands[2]);
+            }
+        } catch (Exception e) {
+            System.out.println("You wrote intorrect command, try agane");
         }
     }
 

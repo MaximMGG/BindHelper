@@ -1,0 +1,15 @@
+<PathToDir>
+
+</PathToDir>
+<Binds>
+<Bind>
+github
+https://github.com/MaximMGG
+<ChildrenBinds>
+<ChildrenBind>
+bindhelper
+https://github.com/MaximMGG/BindHelper
+</ChildrenBind>
+</ChildrenBinds>
+</Bind>
+</Binds>

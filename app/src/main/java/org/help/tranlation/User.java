@@ -76,7 +76,7 @@ public class User {
 
     public void writeConfigEndClose() {
         try {
-            Files.write(Path.of(user.getPathToDir() + user.getCurrentFile()), configXML());
+            Files.write(Path.of("resources/config.xml"), configXML());
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("Can't write configXML, sothing went wrong");
@@ -97,16 +97,16 @@ public class User {
 
             configXML.add("<Bind>");
             
-            configXML.add(b.getName());
-            configXML.add(b.getValue());
+            configXML.add("<name>%s</name>".formatted(b.getName()));
+            configXML.add("<value>%s</value>".formatted(b.getValue()));
             if (b.getChildren() != null) {
 
                 configXML.add("<ChildrenBinds>");
                 
                 for(Bind child : b.getChildren()) {
                     configXML.add("<ChildrenBind>");
-                    configXML.add(child.getName());
-                    configXML.add(child.getValue());
+            configXML.add("<name>%s</name>".formatted(child.getName()));
+            configXML.add("<value>%s</value>".formatted(child.getValue()));
                     configXML.add("</ChildrenBind>");
                 }
                 configXML.add("</ChildrenBinds>");

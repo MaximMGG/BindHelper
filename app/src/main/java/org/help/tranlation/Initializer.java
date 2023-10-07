@@ -85,7 +85,7 @@ public class Initializer extends Thread {
     }
 
     private void setPathToDir(String dirPath) {
-        String b = dirPath.replaceAll("<.+>", "");
+        String b = dirPath.replaceAll("<.[A-z]+>", "");
         user.setPathToDir(b);
     }
 
@@ -96,9 +96,9 @@ public class Initializer extends Thread {
         for (int i = 0; i < buffer.size(); i++) {
             if (buffer.get(i).equals("<Bind>")) {
                 i++;
-                name = buffer.get(i).replaceAll("<.+>", "");
+                name = buffer.get(i).replaceAll("<.[A-z]+>", "");
                 i++;
-                value = buffer.get(i).replaceAll("<.+>", "");
+                value = buffer.get(i).replaceAll("<.[A-z]+>", "");
                 parent = new Bind(name, value);
                 user.addBind(parent);
                 continue;
@@ -106,9 +106,9 @@ public class Initializer extends Thread {
             
             if (buffer.get(i).equals("<ChildBind>")) {
                 i++;
-                name = buffer.get(i).replaceAll("<.+>", "");
+                name = buffer.get(i).replaceAll("<.[A-z]+>", "");
                 i++;
-                value = buffer.get(i).replaceAll("<.+>", "");
+                value = buffer.get(i).replaceAll("<.[A-z]+>", "");
                 user.addChildBind(parent.getName(), new Bind(name, value));
                 continue;
             }

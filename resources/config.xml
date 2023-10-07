@@ -1,0 +1,15 @@
+<PathToDir>
+null
+</PathToDir>
+<Binds>
+<Bind>
+<name>github</name>
+<value>https://github.com/MaximMGG</value>
+<ChildrenBinds>
+<ChildrenBind>
+<name>bindhelper</name>
+<value>https://github.com/MaximMGG/BindHelper</value>
+</ChildrenBind>
+</ChildrenBinds>
+</Bind>
+</Binds>
