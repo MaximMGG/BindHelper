@@ -20,8 +20,6 @@ public class Initializer extends Thread {
     @Override
     public void run() {
         checkOrCreateConfig();
-
-        App.setConfigReady();
     }
 
     public void checkOrCreateConfig() {

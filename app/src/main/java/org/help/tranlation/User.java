@@ -120,6 +120,7 @@ public class User {
 
     public void showAllBinds() {
         for(Bind b : binds) {
+            System.out.println("--------------------------------------");
             System.out.printf("bind : %s, value is : %s\n", b.getName(), b.getValue());
             if (b.getChildren() != null) {
                 List<Bind> children = b.getChildren();
@@ -127,6 +128,7 @@ public class User {
                     System.out.printf("\tbind : %s, value is : %s\n", child.getName(), child.getValue());
                 }
             }
+            System.out.println("--------------------------------------");
         }
     }
 
