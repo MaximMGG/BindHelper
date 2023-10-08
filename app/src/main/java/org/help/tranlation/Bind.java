@@ -44,6 +44,7 @@ public class Bind {
         for(Bind b : children) {
             if (b.equals(child)) {
                 children.remove(b);
+                break;
             }
         }
     }

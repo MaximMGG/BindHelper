@@ -79,7 +79,7 @@ public class App {
             } else if (commands[1].equals("dp")) {
                 user.removeBind(commands[2]);
             } else if (commands[1].equals("dc")) {
-                user.removeBindChild(commands[4], commands[3]);
+                user.removeBindChild(commands[2], commands[3]);
             } else if (commands[1].equals("show")) {
                 user.showAllBinds();
             } else if (commands.length == 2) {

@@ -46,12 +46,13 @@ public class User {
         }
     }
 
-    public void removeBindChild(String childBindName, String bindName) {
+    public void removeBindChild(String bindName, String childBindName) {
         for(Bind b : binds) {
             if (b.getName().equals(bindName)) {
                 for(Bind child : b.getChildren()) {
                     if (child.getName().equals(childBindName)) {
                         b.removeChild(child);
+                        break;
                     }
                 }
             }
